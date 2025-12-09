@@ -7,7 +7,7 @@
         <option value="Guerreiro">Guerreiro</option>
         <option value="Ladina">Ladina</option>
     </select>
-    <input type="number" name="vidaInicial" placeholder="Digite seu nome" required>
+    <input type="number" name="vidaInicial" placeholder="Digite sua vida inicial" required>
     <input type="submit" value="Enviar">
 </form>
 
@@ -19,7 +19,7 @@
     require_once 'config.php';
     require_once 'funcoes.php';
 
-    var_dump($_SERVER);
+
 
     // Code
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,8 +32,10 @@
             "inventario" => []
         ];
 
-        if (in_array(null, $personagemCriado) === false) {
+        if (in_array(null, $personagemCriado, true)) {
             echo "Preencha todos os campos.";
-        };
+        } else{
+            echo exibirStatus($personagemCriado);
+        }
     };
 ?>
