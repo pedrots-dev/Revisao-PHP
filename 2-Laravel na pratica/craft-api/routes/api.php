@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Teste\DiagnosticsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -7,25 +8,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix('teste')->group(function(){
-    Route::get('/health', function () {
-        return response()->json([
-            'status' => 200,
-            'service' => 'craft-api',
-        ]);
-    });
+Route::prefix('teste')
+->controller(DiagnosticsController::class)
+->group(function(){
+    Route::get('/health', 'health');
 
-    Route::get('/ping', function(){
-        return response()->json([
-            'pong' => true,
-        ]);
-    });
+    Route::get('/ping', 'ping');
 
-    Route::get('/version', function(){
-        return response()->json([
-            'php' => phpversion(),
-            'laravel' => app()->version(),
-        ]);
-    });
+    Route::get('/version', 'version');
+
+    Route::get('/time', 'time');
 });
 
