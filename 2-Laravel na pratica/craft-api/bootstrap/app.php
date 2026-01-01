@@ -3,6 +3,11 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+// Exception
+use App\Exceptions\ApiException;
+use App\Support\ApiResponse;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,5 +20,18 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        //Aqui serve para padronizar erros especificos
+        $exceptions->render(function(ApiException $e, Request $request):JsonResponse {
+        //Todos erros que conterem uma classe:
+        // ApiException
+        // Request
+
+        // Faça isso:
+            return ApiResponse::error(
+                $e->codeName,
+                $e->getMessage(),
+                $e->details,
+                $e->httpStatus
+            );
+        });
     })->create();

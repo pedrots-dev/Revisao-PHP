@@ -18,5 +18,11 @@ Route::prefix('teste')
     Route::get('/version', 'version');
 
     Route::get('/time', 'time');
+
+    Route::get('/tokenCheck', 'tokenCheck');
+
+    Route::get('/must-be-number/{value}', 'mustBeNumber');
+
+    Route::get('/must-be-true/{value}', 'mustBeTrue');
 });
 
