@@ -24,5 +24,7 @@ Route::prefix('teste')
     Route::get('/must-be-number/{value}', 'mustBeNumber');
 
     Route::get('/must-be-true/{value}', 'mustBeTrue');
+
+    Route::post('/echo', 'echo');
 });
 

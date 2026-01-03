@@ -8,6 +8,7 @@ use App\Exceptions\ApiException;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -32,6 +33,15 @@ return Application::configure(basePath: dirname(__DIR__))
                 $e->getMessage(),
                 $e->details,
                 $e->httpStatus
+            );
+        });
+
+        $exceptions->render(function(ValidationException $e, Request $request){
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Dados Inválidos',
+                $e->errors(),
+                422
             );
         });
     })->create();

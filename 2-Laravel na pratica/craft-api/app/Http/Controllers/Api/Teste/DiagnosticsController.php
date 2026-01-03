@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Teste;
 
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teste\EchoRequest;
 use Illuminate\Http\Request;
 use ReturnTypeWillChange;
 
@@ -61,5 +62,14 @@ class DiagnosticsController extends Controller
     public function mustBeTrue(Request $request, $value){
         $resposta = $this->diagnosticsService->isTrue($value);
         return ApiResponse::ok($resposta);
+    }
+
+    public function echo(EchoRequest $request){
+        $data = $request->validated();
+
+        return ApiResponse::ok([
+            'recived' => $data,
+        ]
+        );
     }
 }
