@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Teste\DiagnosticsController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,6 @@ Route::prefix('teste')
 
     Route::post('/echo', 'echo');
 });
+
+Route::apiResource('Task', TaskController::class);
 
