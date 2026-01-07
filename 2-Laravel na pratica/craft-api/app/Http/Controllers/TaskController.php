@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Services\TaskService;
 use App\Support\ApiResponse;
 use Illuminate\Http\Request;
+use App\Http\Resources\TaskResource;
 
 class TaskController extends Controller
 {
@@ -29,7 +30,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $task = $this->service->create($request->validated());
-        return ApiResponse::ok($task, [], 201);
+        return ApiResponse::ok(new TaskResource($task), [], 201);
     }
 
     /**
@@ -39,7 +40,7 @@ class TaskController extends Controller
     {
         $task = $this->service->findOrFail($id);
 
-        return ApiResponse::ok($task);
+        return ApiResponse::ok( new TaskResource($task));
 
     }
 
@@ -50,7 +51,7 @@ class TaskController extends Controller
     {
         $task = $this->service->update($id, $request->validated());
 
-        return ApiResponse::ok($task);
+        return ApiResponse::ok( new TaskResource($task));
     }
 
     /**
